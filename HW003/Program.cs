@@ -1,4 +1,5 @@
-﻿// В двумерном массиве целых чисел. Удалить строку и столбец, на пересечении которых расположен наименьший элемент.
+﻿
+// В двумерном массиве целых чисел. Удалить строку и столбец, на пересечении которых расположен наименьший элемент.
 int[,] CreateAndFillMatrix(int lines, int columns)
 {
     Random random = new();
@@ -41,26 +42,29 @@ int[] FiendMinElement(int[,]matrix)
     }
 return indexes;
 }
-int[,] RemoveLineColumns(int[,]matrix, int[]minElements, int lines, int columns)
+int[,] RemoveLineColumns(int[,]matrix, int[]minElements)
 {
-    int[,]ChangeMatrix = new int[lines-1, columns-1];
-    for (int i = 0; i < ChangeMatrix.GetLength(0); i++)
+    int[,] ChangeMatrix = new int[matrix.GetLength(0)-1, matrix.GetLength(1)-1];
+   for (int i = 0, j=0; i < matrix.GetLength(0); i++)
+   {
+        if(i==minElements[0])
+            continue;
+
+    for (int k = 0, u=0; k < matrix.GetLength(1); k++)
     {
-        if (i<minElements[0]||i>minElements[0])
-        {
-            for (int j = 0; j < ChangeMatrix.GetLength(1); j++)
-            {
-                if (j<minElements[1]||j>minElements[1])
-                {
-                    ChangeMatrix[i,j] = matrix[i,j];
-                    
-                }
-            }
-            
-        }
+        if(k==minElements[1])
+            continue;
+        ChangeMatrix[j,u] = matrix[i,k];
+        u++;
     }
-    return ChangeMatrix;
+    j++;
+   }
+   
+     return ChangeMatrix;
 }
+
+   
+
 
 int lines = new Random().Next(3,6);
 int columns = new Random().Next(3,6);
@@ -68,10 +72,5 @@ int[,]Arr=CreateAndFillMatrix(lines, columns);
 PrintMatrix(Arr);
 Console.WriteLine();
 int[] index = FiendMinElement(Arr);
-foreach (var item in index)
-{
-    Console.Write($"{item} ");
-}
-Console.WriteLine();
-int[,]ChangeMatrix = RemoveLineColumns(Arr, index, lines,columns);
+int[,]ChangeMatrix = RemoveLineColumns(Arr, index);
 PrintMatrix(ChangeMatrix);

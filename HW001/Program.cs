@@ -1,4 +1,5 @@
-﻿/*                                                              О д н о м е р н ы й      м а с с и в
+﻿using System.Net.Mime;
+/*                                                              О д н о м е р н ы й      м а с с и в
 int[]array = new int[10];
 Random random = new();
 for (int i = 0; i < array.Length; i++)
@@ -94,4 +95,38 @@ for (int i = 0; i < structura.Length; i=i+temp)
     count = 1;
 }
 */
-/*                                                                  Ч а с т о т н ы й      А н а л и з*/
+/*                                                                  Ч а с т о т н ы й      А н а л и з
+*/
+
+Console.WriteLine("Введите текст: ");
+string text = Console.ReadLine()??"0";
+
+char[]ch = new char[text.Length];
+for (int i = 0; i < text.Length; i++)
+{
+    ch[i] = text.ToLower()[i];
+}
+Array.Sort(ch);
+foreach (var item in ch)
+{
+    Console.Write($"{item} ");
+}
+Console.WriteLine();
+var count = 1;
+int temp =  1;
+double percent = 0;
+for (int i = 0; i < ch.Length; i=i+temp)
+{
+    temp = 1;
+        for (int j = i+1; j < ch.Length; j++)
+        {
+            if (ch[i]==ch[j])
+            {
+                count++;
+                temp = count;
+            }
+        }
+    double c1 = count;
+    Console.WriteLine($"{ch[i]} встречается {count} раз, с частотой {Math.Round(((c1 / ch.Length)*100), 2)} %");
+    count = 1;
+}

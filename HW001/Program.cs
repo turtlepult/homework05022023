@@ -114,7 +114,6 @@ foreach (var item in ch)
 Console.WriteLine();
 var count = 1;
 int temp =  1;
-double percent = 0;
 for (int i = 0; i < ch.Length; i=i+temp)
 {
     temp = 1;
